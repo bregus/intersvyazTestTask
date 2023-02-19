@@ -1,0 +1,43 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Hero",
+        "repositoryURL": "https://github.com/HeroTransitions/Hero.git",
+        "state": {
+          "branch": null,
+          "revision": "efa709686035831b23b7bf58f652b0c4b892aa1d",
+          "version": "1.6.1"
+        }
+      },
+      {
+        "package": "Withable",
+        "repositoryURL": "https://github.com/Geri-Borbas/iOS.Package.Withable.git",
+        "state": {
+          "branch": "main",
+          "revision": "4ed3f969b58c9c6340287f827a8b167a9603be14",
+          "version": null
+        }
+      },
+      {
+        "package": "PinLayout",
+        "repositoryURL": "https://github.com/layoutBox/PinLayout",
+        "state": {
+          "branch": null,
+          "revision": "75c88c5c374c7bc78a154ffdf963cd362f38258a",
+          "version": "1.10.3"
+        }
+      },
+      {
+        "package": "SnapKit",
+        "repositoryURL": "https://github.com/SnapKit/SnapKit.git",
+        "state": {
+          "branch": null,
+          "revision": "f222cbdf325885926566172f6f5f06af95473158",
+          "version": "5.6.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

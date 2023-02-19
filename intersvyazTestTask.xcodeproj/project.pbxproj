@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5505412928B3E8BE00D0C99E /* NetShears in Frameworks */ = {isa = PBXBuildFile; productRef = 5505412828B3E8BE00D0C99E /* NetShears */; };
 		5505412B28B3F6AA00D0C99E /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5505412A28B3F6AA00D0C99E /* UITableView+Extension.swift */; };
 		5505412D28B3F6DB00D0C99E /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5505412C28B3F6DB00D0C99E /* UICollectionView+Extension.swift */; };
 		5505413428B3F93000D0C99E /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5505413328B3F93000D0C99E /* Endpoint.swift */; };
 		5505413628B3F98A00D0C99E /* EndpointCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5505413528B3F98A00D0C99E /* EndpointCases.swift */; };
 		5505413828B3FB7F00D0C99E /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5505413728B3FB7F00D0C99E /* Request.swift */; };
+		550B513F29A2677C00166E45 /* Withable in Frameworks */ = {isa = PBXBuildFile; productRef = 550B513E29A2677C00166E45 /* Withable */; };
 		550D06C7281B028C00A80DD4 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550D06C6281B028C00A80DD4 /* UIViewController+Extensions.swift */; };
 		5519525E27B2D47600859D7E /* PushAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5519525D27B2D47600859D7E /* PushAnimator.swift */; };
 		5548028626F0912E0042F1AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5548028526F0912E0042F1AB /* AppDelegate.swift */; };
@@ -25,12 +25,13 @@
 		5548029E26F0A98D0042F1AB /* ImageDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5548029D26F0A98D0042F1AB /* ImageDescriptionViewController.swift */; };
 		554802A026F0B4C00042F1AB /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5548029F26F0B4C00042F1AB /* Api.swift */; };
 		554831FB27973290001AEE73 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 554831FA27973290001AEE73 /* SnapKit */; };
+		556CB797292D55CE00518047 /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556CB796292D55CE00518047 /* ImageScrollView.swift */; };
 		557860772853C66E008F64C3 /* TransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557860762853C66E008F64C3 /* TransitionAnimator.swift */; };
 		557860792853C6E7008F64C3 /* TranisionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557860782853C6E7008F64C3 /* TranisionCoordinator.swift */; };
 		5578607B2853C9E5008F64C3 /* GalleryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5578607A2853C9E5008F64C3 /* GalleryViewModel.swift */; };
 		557B67B82855177E0041E57D /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557B67B72855177E0041E57D /* Box.swift */; };
 		557B67BB285519160041E57D /* Hero in Frameworks */ = {isa = PBXBuildFile; productRef = 557B67BA285519160041E57D /* Hero */; };
-		55FF4A4B28BFD23900AEB1B6 /* SelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FF4A4A28BFD23900AEB1B6 /* SelectorView.swift */; };
+		55A7006E292680C0006EC33D /* PinLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 55A7006D292680C0006EC33D /* PinLayout */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,11 +53,11 @@
 		5548029B26F09A380042F1AB /* CachableImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CachableImageView.swift; sourceTree = "<group>"; };
 		5548029D26F0A98D0042F1AB /* ImageDescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDescriptionViewController.swift; sourceTree = "<group>"; };
 		5548029F26F0B4C00042F1AB /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
+		556CB796292D55CE00518047 /* ImageScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageScrollView.swift; sourceTree = "<group>"; };
 		557860762853C66E008F64C3 /* TransitionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAnimator.swift; sourceTree = "<group>"; };
 		557860782853C6E7008F64C3 /* TranisionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranisionCoordinator.swift; sourceTree = "<group>"; };
 		5578607A2853C9E5008F64C3 /* GalleryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewModel.swift; sourceTree = "<group>"; };
 		557B67B72855177E0041E57D /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
-		55FF4A4A28BFD23900AEB1B6 /* SelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,8 +66,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				557B67BB285519160041E57D /* Hero in Frameworks */,
-				5505412928B3E8BE00D0C99E /* NetShears in Frameworks */,
+				55A7006E292680C0006EC33D /* PinLayout in Frameworks */,
 				554831FB27973290001AEE73 /* SnapKit in Frameworks */,
+				550B513F29A2677C00166E45 /* Withable in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,7 +127,6 @@
 				5548029926F099F40042F1AB /* GalleryCollectionViewCell.swift */,
 				5548028926F0912E0042F1AB /* GalleryViewController.swift */,
 				5578607A2853C9E5008F64C3 /* GalleryViewModel.swift */,
-				55FF4A4A28BFD23900AEB1B6 /* SelectorView.swift */,
 			);
 			path = Gallery;
 			sourceTree = "<group>";
@@ -134,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				5548029D26F0A98D0042F1AB /* ImageDescriptionViewController.swift */,
+				556CB796292D55CE00518047 /* ImageScrollView.swift */,
 			);
 			path = ImageDetail;
 			sourceTree = "<group>";
@@ -148,11 +150,19 @@
 			path = Animators;
 			sourceTree = "<group>";
 		};
+		5528DB912914307C003D2932 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		5548027926F0912E0042F1AB = {
 			isa = PBXGroup;
 			children = (
 				5548028426F0912E0042F1AB /* intersvyazTestTask */,
 				5548028326F0912E0042F1AB /* Products */,
+				5528DB912914307C003D2932 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -201,7 +211,8 @@
 			packageProductDependencies = (
 				554831FA27973290001AEE73 /* SnapKit */,
 				557B67BA285519160041E57D /* Hero */,
-				5505412828B3E8BE00D0C99E /* NetShears */,
+				55A7006D292680C0006EC33D /* PinLayout */,
+				550B513E29A2677C00166E45 /* Withable */,
 			);
 			productName = intersvyazTestTask;
 			productReference = 5548028226F0912E0042F1AB /* intersvyazTestTask.app */;
@@ -233,7 +244,8 @@
 			packageReferences = (
 				554831F927973290001AEE73 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				557B67B9285519160041E57D /* XCRemoteSwiftPackageReference "Hero" */,
-				5505412728B3E8BE00D0C99E /* XCRemoteSwiftPackageReference "NetShears" */,
+				55A7006C292680C0006EC33D /* XCRemoteSwiftPackageReference "PinLayout" */,
+				550B513D29A2677C00166E45 /* XCRemoteSwiftPackageReference "iOS.Package.Withable" */,
 			);
 			productRefGroup = 5548028326F0912E0042F1AB /* Products */;
 			projectDirPath = "";
@@ -263,7 +275,7 @@
 			files = (
 				5505412D28B3F6DB00D0C99E /* UICollectionView+Extension.swift in Sources */,
 				5548028A26F0912E0042F1AB /* GalleryViewController.swift in Sources */,
-				55FF4A4B28BFD23900AEB1B6 /* SelectorView.swift in Sources */,
+				556CB797292D55CE00518047 /* ImageScrollView.swift in Sources */,
 				557B67B82855177E0041E57D /* Box.swift in Sources */,
 				5505412B28B3F6AA00D0C99E /* UITableView+Extension.swift in Sources */,
 				5548029A26F099F40042F1AB /* GalleryCollectionViewCell.swift in Sources */,
@@ -355,6 +367,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = "";
 			};
 			name = Debug;
 		};
@@ -409,6 +422,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = "";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -475,12 +489,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5505412728B3E8BE00D0C99E /* XCRemoteSwiftPackageReference "NetShears" */ = {
+		550B513D29A2677C00166E45 /* XCRemoteSwiftPackageReference "iOS.Package.Withable" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/divar-ir/NetShears.git";
+			repositoryURL = "https://github.com/Geri-Borbas/iOS.Package.Withable.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.0;
+				branch = main;
+				kind = branch;
 			};
 		};
 		554831F927973290001AEE73 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
@@ -499,13 +513,21 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		55A7006C292680C0006EC33D /* XCRemoteSwiftPackageReference "PinLayout" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/layoutBox/PinLayout";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5505412828B3E8BE00D0C99E /* NetShears */ = {
+		550B513E29A2677C00166E45 /* Withable */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5505412728B3E8BE00D0C99E /* XCRemoteSwiftPackageReference "NetShears" */;
-			productName = NetShears;
+			package = 550B513D29A2677C00166E45 /* XCRemoteSwiftPackageReference "iOS.Package.Withable" */;
+			productName = Withable;
 		};
 		554831FA27973290001AEE73 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -516,6 +538,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 557B67B9285519160041E57D /* XCRemoteSwiftPackageReference "Hero" */;
 			productName = Hero;
+		};
+		55A7006D292680C0006EC33D /* PinLayout */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 55A7006C292680C0006EC33D /* XCRemoteSwiftPackageReference "PinLayout" */;
+			productName = PinLayout;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -7,19 +7,39 @@
 
 import Foundation
 
-class Box<T> {
-  typealias Listener = () -> Void
+@propertyWrapper class Box<T: Equatable> {
+  private var publisher: Publisher<T> = Publisher()
+
+  var wrappedValue: T {
+    didSet {
+      guard wrappedValue != oldValue else { return }
+      publisher.thread.async { self.publisher.listener?(self.wrappedValue) }
+    }
+  }
+
+  var projectedValue: Publisher<T> {
+    get { publisher }
+  }
+
+  init(wrappedValue: T) {
+    self.wrappedValue = wrappedValue
+  }
+}
+
+class Publisher<T> {
+  typealias Listener = (T) -> Void
+  var thread: DispatchQueue = .main
   var listener: Listener?
-  var value: T {
-    didSet { listener?() }
-  }
-  
-  init(_ value: T) {
-    self.value = value
-  }
-  
-  func bind(_ listener: @escaping Listener) {
+
+  @discardableResult
+  func sink(_ listener: @escaping Listener) -> Self {
     self.listener = listener
-    self.listener?()
+    return self
+  }
+
+  @discardableResult
+  func on(_ thread: DispatchQueue) -> Self {
+    self.thread = thread
+    return self
   }
 }

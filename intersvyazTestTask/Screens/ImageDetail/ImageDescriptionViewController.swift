@@ -15,10 +15,9 @@ class ImageDescriptionViewController: UIViewController {
     let imageView = CachableImageView()
     imageView.contentMode = .scaleAspectFit
     imageView.clipsToBounds = true
-    imageView.translatesAutoresizingMaskIntoConstraints = false
     return imageView
   }()
-        
+
   init(item: ImageModel) {
     self.item = item
     super.init(nibName: nil, bundle: nil)
@@ -48,16 +47,13 @@ class ImageDescriptionViewController: UIViewController {
   
   private func setImageView() {
     view.addSubview(imageView)
+    imageView.pin.all(view.pin.safeArea).center()
     self.imageView.setImage(from: item.croppedUrl)
     self.imageView.setImage(from: item.download_url, needPlaceholder: false)
-    imageView.snp.makeConstraints { make in
-      make.center.equalToSuperview()
-      make.edges.greaterThanOrEqualToSuperview()
-    }
     
-    imageView.isUserInteractionEnabled = true
+//    imageView.isUserInteractionEnabled = true
 //    imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissVC)))
-    imageView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handlePan)))
+//    imageView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handlePan)))
   }
   
   @objc func dismissVC() {

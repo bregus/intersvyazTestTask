@@ -8,22 +8,27 @@
 import Foundation
 
 class GalleryViewModel {
-  var items: Box<[ImageModel]> = Box([])
-  private var page: Int = 0
+  @Box var items: [ImageModel] = []
+  private var page: Int = 1
   private var loadingNextPage: Bool = false
 }
 
 extension GalleryViewModel {
-  func loadNextPage() {
+  func loadNextPage() async {
     if !loadingNextPage {
       loadingNextPage = true
-      Api.fetchImages(page: page) { response in
-        self.items.value += response
-        self.page += 1
-        if response.count != 0 {
-          self.loadingNextPage = false
-        }
-      }
+      items += await getPage(index: page)
+      page += 1
     }
+  }
+  
+  func getPage(index: Int) async -> [ImageModel] {
+    let images: [ImageModel] = await withCheckedContinuation({ continuation in
+      Api.fetchImages(page: index) { result in
+        self.loadingNextPage = false
+        continuation.resume(returning: result)
+      }
+    })
+    return images
   }
 }

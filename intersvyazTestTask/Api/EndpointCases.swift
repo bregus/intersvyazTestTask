@@ -7,13 +7,14 @@
 
 import Foundation
 
-//struct PicsumApi: APIService {
-//  var baseURLString: String { "https://picsum.photos" }
-//
+struct PicsumApi: APIService {
+  var baseURLString: String { "https://picsum.photos" }
+
+
 //  static func images(page: Int) {
 //    Endpoint(httpMethod: .get, path: "v2/list?page=\(page)&limit=10&grayscale")
 //  }
-//}
+}
 //
 //enum PicsumEndpoints: Endpoint {
 //
