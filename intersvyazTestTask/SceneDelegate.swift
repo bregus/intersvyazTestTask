@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import NetShears
+import NetworkMonitor
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   
@@ -19,9 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
     guard let windowScene = (scene as? UIWindowScene) else { return }
     window = UIWindow(frame: UIScreen.main.bounds)
-//    NetShears.shared.startInterceptor()
-    NetShears.shared.startListener()
-    NetShears.shared.startLogger() 
+    NetworkMonitor.shared.startListener()
     window?.makeKeyAndVisible()
     window?.windowScene = windowScene
     window?.rootViewController = GalleryViewController().embended

@@ -28,8 +28,10 @@ class CachableImageView : UIImageView {
       guard let image = UIImage(data: response) else { return }
       DispatchQueue.main.sync() { [weak self] in
         if let self, self.imageUrlString == url {
-//          let image = image.downsampleImage(for: self.frame.size)
-          self.image = image
+          UIView.transition(with: self, duration: 0.35, options: .transitionCrossDissolve) {
+            self.image = image
+          }
+//        let image = image.downsampleImage(for: self.frame.size)
         }
         imageCache.setObject(image, forKey: url as NSString)
       }

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import PinLayout
+import SnapKit
 
 class GalleryCollectionViewCell: UICollectionViewCell {
   let imageView: CachableImageView = {
@@ -22,7 +22,7 @@ class GalleryCollectionViewCell: UICollectionViewCell {
     self.contentView.autoresizingMask.insert(.flexibleHeight)
     self.contentView.autoresizingMask.insert(.flexibleWidth)
     imageView.backgroundColor = .secondarySystemBackground
-    imageView.pin.all()
+    imageView.snp.makeConstraints { $0.edges.equalToSuperview() }
   }
 
   override func prepareForReuse() {

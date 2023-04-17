@@ -6,19 +6,39 @@
 //
 
 import UIKit
-import Hero
-import NetShears
+import NetworkMonitor
 
 class GalleryViewController: UIViewController {
+
+  typealias Snapshot = NSDiffableDataSourceSnapshot<Int, ImageModel>
+  typealias DataSource = UICollectionViewDiffableDataSource<Int, ImageModel>
+
   private let viewModel = GalleryViewModel()
 
   let transition = PushAnimator()
+  var datasource: DataSource!
+
+  private lazy var sizeMenu: UIMenu = { [unowned self] in
+    return UIMenu(title: "Select size", image: nil, identifier: nil, options: [.displayInline], children: [
+      UIAction(title: "List", image: UIImage(systemName: "rectangle.inset.filled"), handler: { (_) in
+        self.collectionView.setCollectionViewLayout(GridCollectionViewLayout(gridItemSize: .list), animated: true)
+      }),
+      UIAction(title: "Half", image: UIImage(systemName: "square.grid.2x2.fill"), handler: { (_) in
+        self.collectionView.setCollectionViewLayout(GridCollectionViewLayout(gridItemSize: .half), animated: true)
+      }),
+      UIAction(title: "Third", image: UIImage(systemName: "square.grid.3x2.fill"), handler: { (_) in
+        self.collectionView.setCollectionViewLayout(GridCollectionViewLayout(gridItemSize: .third), animated: true)
+      }),
+      UIAction(title: "Quarter", image: UIImage(systemName: "square.grid.4x3.fill"), handler: { (_) in
+        self.collectionView.setCollectionViewLayout(GridCollectionViewLayout(gridItemSize: .quarter), animated: true)
+      }),
+    ])
+  }()
 
   lazy var collectionView: UICollectionView = {
-    let collection = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
-    collection.delegate = self
-    collection.dataSource = self
+    let collection = UICollectionView(frame: CGRect.zero, collectionViewLayout: GridCollectionViewLayout(gridItemSize: .half))
     collection.alwaysBounceVertical = true
+    collection.delegate = self
     collection.registerCell(GalleryCollectionViewCell.self)
     return collection
   }()
@@ -26,8 +46,12 @@ class GalleryViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     setNavigation()
-    transitioningDelegate = self
-    viewModel.$items.sink { [weak self] _ in self?.updateColletionView() }
+//    transitioningDelegate = self
+    configureDatasource()
+    viewModel.$items.sink { [weak self] _ in
+      guard let self else { return }
+      self.datasource.apply(self.snapshot(), animatingDifferences: true)
+    }
     Task { await viewModel.loadNextPage() }
   }
   
@@ -41,56 +65,57 @@ class GalleryViewController: UIViewController {
     navigationController?.navigationBar.prefersLargeTitles = true
     navigationItem.largeTitleDisplayMode = .automatic
     let interceptorButton = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(showLogger))
-    navigationItem.rightBarButtonItems = [interceptorButton]
+    let gridButton = UIBarButtonItem(systemItem: .edit, primaryAction: nil, menu: sizeMenu)
+    navigationItem.rightBarButtonItems = [interceptorButton, gridButton]
   }
-    
-  override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-    self.collectionView.reloadData()
-  }
-  
-  func updateColletionView() {
-    self.collectionView.reloadData()
-  }
-  
+
   @objc func showLogger() {
-    NetShears.shared.presentNetworkMonitor()
+    NetworkMonitor.shared.presentNetworkMonitor()
+  }
+
+  private func configureDatasource() {
+    datasource = DataSource(collectionView: collectionView, cellProvider: { [unowned self] collectionView, indexPath, item in
+      return self.cell(collectionView: collectionView, indexPath: indexPath, item: item)
+    })
+
+    datasource.apply(snapshot(), animatingDifferences: true)
+  }
+
+  private func snapshot() -> Snapshot {
+    var snapshot = Snapshot()
+    snapshot.appendSections([0])
+    snapshot.appendItems(viewModel.items, toSection: 0)
+    return snapshot
+  }
+
+  private func cell(collectionView: UICollectionView, indexPath: IndexPath, item: ImageModel) -> UICollectionViewCell {
+    let cell = collectionView.dequeueCell(GalleryCollectionViewCell.self, for: indexPath)
+    cell.setup(url: item.croppedUrl)
+    return cell
   }
 }
 
-extension GalleryViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    viewModel.items.count
-  }
-    
-  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueCell(GalleryCollectionViewCell.self, for: indexPath)
-    cell.setup(url: viewModel.items[indexPath.item].croppedUrl)
-    return cell
-  }
-    
+extension GalleryViewController: UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    let vc = ImageDescriptionViewController(item: viewModel.items[indexPath.item]).embended
-    vc.modalPresentationStyle = .overFullScreen
-    vc.transitioningDelegate = self
-    present(vc, animated: true)
+    let vc = ImageDescriptionViewController(item: viewModel.items[indexPath.item])
+    navigationController?.pushViewController(vc, animated: true)
   }
-    
-  func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
-    UIView.animate(withDuration: 0.2) {
-      if let cell = collectionView.cellForItem(at: indexPath) {
-        cell.transform = .init(scaleX: 0.9, y: 0.9)
+
+  func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemsAt indexPaths: [IndexPath], point: CGPoint) -> UIContextMenuConfiguration? {
+    UIContextMenuConfiguration(previewProvider: { () -> UIViewController? in
+      guard let index = indexPaths.first?.item else { return nil }
+      return ImageDescriptionViewController(item: self.viewModel.items[index])
+    })
+  }
+
+  func collectionView(_ collectionView: UICollectionView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
+    animator.addCompletion {
+      if let viewController = animator.previewViewController {
+        self.show(viewController, sender: self)
       }
     }
   }
 
-  func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
-    UIView.animate(withDuration: 0.5) {
-      if let cell = collectionView.cellForItem(at: indexPath) {
-        cell.transform = .identity
-      }
-    }
-  }
-    
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
     let offsetY = scrollView.contentOffset.y
     let contentHeight = scrollView.contentSize.height
@@ -101,59 +126,46 @@ extension GalleryViewController: UICollectionViewDelegate, UICollectionViewDataS
   }
 }
 
-extension GalleryViewController: UICollectionViewDelegateFlowLayout {
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    let items = 3
-    let size = collectionView.frame.width - CGFloat(items * 10)
-    let cellsize =  size / CGFloat(items)
-    return CGSize(width: cellsize, height: cellsize)
-  }
-    
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-    return UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-  }
-}
-
-extension GalleryViewController: UIViewControllerTransitioningDelegate {
-  func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-    guard let selectedIndexPathCell = collectionView.indexPathsForSelectedItems?.first,
-          let selectedCell = collectionView.cellForItem(at: selectedIndexPathCell),
-          let selectedCellSuperview = selectedCell.superview
-    else {
-      return nil
-    }
-    selectedCell.isHidden = false
-    transition.originFrame = selectedCellSuperview.convert(selectedCell.frame, to: nil)
-    let ratio = view.frame.width / view.frame.height
-    let diff = (transition.originFrame.height * ratio) / 2
-    transition.originFrame = CGRect(
-      x: transition.originFrame.origin.x,
-      y: transition.originFrame.origin.y - diff,
-      width: transition.originFrame.size.width,
-      height: transition.originFrame.size.height + diff
-    )
-    transition.presenting = false
-    return transition
-  }
-
-  func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-    guard let selectedIndexPathCell = collectionView.indexPathsForSelectedItems?.first,
-          let selectedCell = collectionView.cellForItem(at: selectedIndexPathCell),
-          let selectedCellSuperview = selectedCell.superview
-    else {
-      return nil
-    }
-    selectedCell.isHidden = true
-    transition.originFrame = selectedCellSuperview.convert(selectedCell.frame, to: nil)
-    let ratio = view.frame.width / view.frame.height
-    let diff = (transition.originFrame.height * ratio) / 2
-    transition.originFrame = CGRect(
-      x: transition.originFrame.origin.x,
-      y: transition.originFrame.origin.y - diff,
-      width: transition.originFrame.size.width,
-      height: transition.originFrame.size.height + diff
-    )
-    transition.presenting = true
-    return transition
-  }
-}
+//extension GalleryViewController: UIViewControllerTransitioningDelegate {
+//  func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+//    guard let selectedIndexPathCell = collectionView.indexPathsForSelectedItems?.first,
+//          let selectedCell = collectionView.cellForItem(at: selectedIndexPathCell),
+//          let selectedCellSuperview = selectedCell.superview
+//    else {
+//      return nil
+//    }
+//    selectedCell.isHidden = false
+//    transition.originFrame = selectedCellSuperview.convert(selectedCell.frame, to: nil)
+//    let ratio = view.frame.width / view.frame.height
+//    let diff = (transition.originFrame.height * ratio) / 2
+//    transition.originFrame = CGRect(
+//      x: transition.originFrame.origin.x,
+//      y: transition.originFrame.origin.y - diff,
+//      width: transition.originFrame.size.width,
+//      height: transition.originFrame.size.height + diff
+//    )
+//    transition.presenting = false
+//    return transition
+//  }
+//
+//  func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+//    guard let selectedIndexPathCell = collectionView.indexPathsForSelectedItems?.first,
+//          let selectedCell = collectionView.cellForItem(at: selectedIndexPathCell),
+//          let selectedCellSuperview = selectedCell.superview
+//    else {
+//      return nil
+//    }
+//    selectedCell.isHidden = true
+//    transition.originFrame = selectedCellSuperview.convert(selectedCell.frame, to: nil)
+//    let ratio = view.frame.width / view.frame.height
+//    let diff = (transition.originFrame.height * ratio) / 2
+//    transition.originFrame = CGRect(
+//      x: transition.originFrame.origin.x,
+//      y: transition.originFrame.origin.y - diff,
+//      width: transition.originFrame.size.width,
+//      height: transition.originFrame.size.height + diff
+//    )
+//    transition.presenting = true
+//    return transition
+//  }
+//}

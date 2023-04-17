@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Hero
 
 class ImageDescriptionViewController: UIViewController {
   private var item: ImageModel
@@ -29,6 +28,7 @@ class ImageDescriptionViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    view.backgroundColor = .systemBackground
     setView()
     setNavigation()
     setImageView()
@@ -47,13 +47,18 @@ class ImageDescriptionViewController: UIViewController {
   
   private func setImageView() {
     view.addSubview(imageView)
-    imageView.pin.all(view.pin.safeArea).center()
+
+    imageView.snp.makeConstraints { make in
+      make.center.equalToSuperview()
+      make.left.right.lessThanOrEqualTo(view.safeAreaLayoutGuide)
+    }
+
     self.imageView.setImage(from: item.croppedUrl)
-    self.imageView.setImage(from: item.download_url, needPlaceholder: false)
     
-//    imageView.isUserInteractionEnabled = true
-//    imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissVC)))
-//    imageView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handlePan)))
+    let width = view.bounds.width
+    let height = (imageView.image?.size.height ?? 1) * (width / (imageView.image?.size.width ?? 1))
+    preferredContentSize = CGSize(width: width, height: height)
+    self.imageView.setImage(from: item.download_url, needPlaceholder: false)
   }
   
   @objc func dismissVC() {
@@ -68,7 +73,7 @@ class ImageDescriptionViewController: UIViewController {
   private func setNavigation() {
     navigationItem.largeTitleDisplayMode = .never
     navigationController?.navigationBar.tintColor = .label
-    navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(close))
+//    navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(close))
     let button = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share))
     navigationItem.rightBarButtonItem = button
     navigationItem.title = item.author
@@ -92,27 +97,5 @@ class ImageDescriptionViewController: UIViewController {
     toggleNavBar()
     view.backgroundColor = .clear
     self.dismiss(animated: true)
-  }
-  
-  @objc func handlePan(_ sender: UIPanGestureRecognizer) {
-      let translation = sender.translation(in: nil)
-      let progress = translation.y / 2 / view.bounds.height
-      switch sender.state {
-      case .began:
-        hero.dismissViewController()
-      case .changed:
-          Hero.shared.update(progress)
-          let currentPosition = CGPoint(x: translation.x + imageView.center.x, y: translation.y + imageView.center.y)
-          Hero.shared.apply(modifiers: [.position(currentPosition)], to: imageView)
-      default:
-          // to dismiss for up and down direction
-          Hero.shared.finish()
-          // to dismiss for down direction only, must uncomment this if statement
-//            if progress > 0.1 {
-//                Hero.shared.finish()
-//            } else {
-//                Hero.shared.cancel()
-//            }
-      }
   }
 }
