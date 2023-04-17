@@ -22,8 +22,8 @@
 		5548029E26F0A98D0042F1AB /* ImageDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5548029D26F0A98D0042F1AB /* ImageDescriptionViewController.swift */; };
 		554802A026F0B4C00042F1AB /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5548029F26F0B4C00042F1AB /* Api.swift */; };
 		554831FB27973290001AEE73 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 554831FA27973290001AEE73 /* SnapKit */; };
-		554C954B29EDB16D006A7A48 /* NetworkMonitor in Frameworks */ = {isa = PBXBuildFile; productRef = 554C954A29EDB16D006A7A48 /* NetworkMonitor */; };
 		555315A529CF36C000CC1123 /* GridCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555315A429CF36C000CC1123 /* GridCollectionViewLayout.swift */; };
+		5568A7B729EDCE1700264987 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = 5568A7B629EDCE1700264987 /* AlamofireImage */; };
 		556CB797292D55CE00518047 /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556CB796292D55CE00518047 /* ImageScrollView.swift */; };
 		557860772853C66E008F64C3 /* TransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557860762853C66E008F64C3 /* TransitionAnimator.swift */; };
 		557860792853C6E7008F64C3 /* TranisionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557860782853C6E7008F64C3 /* TranisionCoordinator.swift */; };
@@ -61,7 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				554C954B29EDB16D006A7A48 /* NetworkMonitor in Frameworks */,
+				5568A7B729EDCE1700264987 /* AlamofireImage in Frameworks */,
 				554831FB27973290001AEE73 /* SnapKit in Frameworks */,
 				550B513F29A2677C00166E45 /* Withable in Frameworks */,
 			);
@@ -205,7 +205,7 @@
 			packageProductDependencies = (
 				554831FA27973290001AEE73 /* SnapKit */,
 				550B513E29A2677C00166E45 /* Withable */,
-				554C954A29EDB16D006A7A48 /* NetworkMonitor */,
+				5568A7B629EDCE1700264987 /* AlamofireImage */,
 			);
 			productName = intersvyazTestTask;
 			productReference = 5548028226F0912E0042F1AB /* intersvyazTestTask.app */;
@@ -237,7 +237,7 @@
 			packageReferences = (
 				554831F927973290001AEE73 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				550B513D29A2677C00166E45 /* XCRemoteSwiftPackageReference "iOS.Package.Withable" */,
-				554C954929EDB16D006A7A48 /* XCRemoteSwiftPackageReference "NetworkMonitor" */,
+				5568A7B529EDCE1700264987 /* XCRemoteSwiftPackageReference "AlamofireImage" */,
 			);
 			productRefGroup = 5548028326F0912E0042F1AB /* Products */;
 			projectDirPath = "";
@@ -503,12 +503,12 @@
 				minimumVersion = 5.0.1;
 			};
 		};
-		554C954929EDB16D006A7A48 /* XCRemoteSwiftPackageReference "NetworkMonitor" */ = {
+		5568A7B529EDCE1700264987 /* XCRemoteSwiftPackageReference "AlamofireImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/bregus/NetworkMonitor.git";
+			repositoryURL = "https://github.com/Alamofire/AlamofireImage.git";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -524,10 +524,10 @@
 			package = 554831F927973290001AEE73 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
 		};
-		554C954A29EDB16D006A7A48 /* NetworkMonitor */ = {
+		5568A7B629EDCE1700264987 /* AlamofireImage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 554C954929EDB16D006A7A48 /* XCRemoteSwiftPackageReference "NetworkMonitor" */;
-			productName = NetworkMonitor;
+			package = 5568A7B529EDCE1700264987 /* XCRemoteSwiftPackageReference "AlamofireImage" */;
+			productName = AlamofireImage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import NetworkMonitor
 
 class GalleryViewController: UIViewController {
 
@@ -64,13 +63,12 @@ class GalleryViewController: UIViewController {
     navigationItem.title = "Gallery"
     navigationController?.navigationBar.prefersLargeTitles = true
     navigationItem.largeTitleDisplayMode = .automatic
-    let interceptorButton = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(showLogger))
+//    let interceptorButton = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(showLogger))
     let gridButton = UIBarButtonItem(systemItem: .edit, primaryAction: nil, menu: sizeMenu)
-    navigationItem.rightBarButtonItems = [interceptorButton, gridButton]
+    navigationItem.rightBarButtonItems = [gridButton]
   }
 
   @objc func showLogger() {
-    NetworkMonitor.shared.presentNetworkMonitor()
   }
 
   private func configureDatasource() {
@@ -90,7 +88,7 @@ class GalleryViewController: UIViewController {
 
   private func cell(collectionView: UICollectionView, indexPath: IndexPath, item: ImageModel) -> UICollectionViewCell {
     let cell = collectionView.dequeueCell(GalleryCollectionViewCell.self, for: indexPath)
-    cell.setup(url: item.croppedUrl)
+    cell.setup(url: item.download_url)
     return cell
   }
 }

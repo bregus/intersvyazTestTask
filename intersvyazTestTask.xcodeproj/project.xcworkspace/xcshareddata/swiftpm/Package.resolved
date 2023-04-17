@@ -1,21 +1,30 @@
 {
   "pins" : [
     {
+      "identity" : "alamofire",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/Alamofire.git",
+      "state" : {
+        "revision" : "78424be314842833c04bc3bef5b72e85fff99204",
+        "version" : "5.6.4"
+      }
+    },
+    {
+      "identity" : "alamofireimage",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/AlamofireImage.git",
+      "state" : {
+        "revision" : "98cbb00ce0ec5fc8e52a5b50a6bfc08d3e5aee10",
+        "version" : "4.2.0"
+      }
+    },
+    {
       "identity" : "ios.package.withable",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Geri-Borbas/iOS.Package.Withable.git",
       "state" : {
         "branch" : "main",
         "revision" : "4ed3f969b58c9c6340287f827a8b167a9603be14"
-      }
-    },
-    {
-      "identity" : "networkmonitor",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/bregus/NetworkMonitor.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "10cd156129dbd629f6b42cfcf074257ed7ca5a17"
       }
     },
     {

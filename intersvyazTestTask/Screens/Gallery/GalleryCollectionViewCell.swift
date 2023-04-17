@@ -7,10 +7,11 @@
 
 import UIKit
 import SnapKit
+import AlamofireImage
 
 class GalleryCollectionViewCell: UICollectionViewCell {
-  let imageView: CachableImageView = {
-    let imageView = CachableImageView()
+  let imageView: UIImageView = {
+    let imageView = UIImageView()
     imageView.contentMode = .scaleAspectFill
     imageView.clipsToBounds = true
     return imageView
@@ -35,7 +36,8 @@ class GalleryCollectionViewCell: UICollectionViewCell {
   }
     
   func setup(url: String) {
-    self.imageView.setImage(from: url, needPlaceholder: false)
+    guard let url = URL(string: url) else { return }
+    imageView.af.setImage(withURL: url, filter: AspectScaledToFillSizeFilter(size: frame.size), imageTransition: .crossDissolve(0.2))//.setImage(from: url, needPlaceholder: false)
   }
     
   required init?(coder: NSCoder) {

@@ -6,12 +6,13 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class ImageDescriptionViewController: UIViewController {
   private var item: ImageModel
   
-  let imageView: CachableImageView = {
-    let imageView = CachableImageView()
+  let imageView: UIImageView = {
+    let imageView = UIImageView()
     imageView.contentMode = .scaleAspectFit
     imageView.clipsToBounds = true
     return imageView
@@ -32,12 +33,12 @@ class ImageDescriptionViewController: UIViewController {
     setView()
     setNavigation()
     setImageView()
-    navigationController?.setNavigationBarHidden(true, animated: false)
+//    navigationController?.setNavigationBarHidden(true, animated: false)
   }
   
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    toggleNavBar()
+//    toggleNavBar()
   }
   
   override var prefersHomeIndicatorAutoHidden: Bool {
@@ -53,12 +54,18 @@ class ImageDescriptionViewController: UIViewController {
       make.left.right.lessThanOrEqualTo(view.safeAreaLayoutGuide)
     }
 
-    self.imageView.setImage(from: item.croppedUrl)
-    
-    let width = view.bounds.width
-    let height = (imageView.image?.size.height ?? 1) * (width / (imageView.image?.size.width ?? 1))
-    preferredContentSize = CGSize(width: width, height: height)
-    self.imageView.setImage(from: item.download_url, needPlaceholder: false)
+    guard let url = URL(string: item.download_url) else { return }
+
+    imageView.af.setImage(withURL: url, imageTransition: .crossDissolve(0.2)) { res in
+      switch res.result {
+      case .success(let image):
+        let width = self.view.bounds.width
+        let height = (image.size.height) * (width / (image.size.width))
+        self.preferredContentSize = CGSize(width: width, height: height)
+      case .failure:
+        self.navigationController?.popViewController(animated: true)
+      }
+    }
   }
   
   @objc func dismissVC() {
